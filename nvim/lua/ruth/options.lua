@@ -12,10 +12,13 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 vim.opt.wildmode = 'longest:full,full'
 
 vim.opt.swapfile = false
-vim.opt.backup = true -- automatically save a backup file
+vim.opt.backup = true         -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
@@ -31,7 +34,7 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 
 vim.opt.list = false
-vim.opt.fillchars:append({eob = ' '}) --Remove ~ from the end of buffer
+vim.opt.fillchars:append({ eob = ' ' }) --Remove ~ from the end of buffer
 
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"

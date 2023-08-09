@@ -19,3 +19,6 @@ ln -s $DOTFILES/ags $HOME/.config/ags
 
 rm -rf $HOME/.config/rofi
 ln -s $DOTFILES/rofi $HOME/.config/rofi
+
+rm -r $HOME/.zshrc
+ln -s $DOTFILES/.zshrc $HOME/.zshrc
