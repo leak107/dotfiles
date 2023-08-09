@@ -1,0 +1,39 @@
+font_family 		JetBrainsMono NF Regular
+bold_font		JetBrainsMono NF Bold
+italic_font		JetBrainsMono NF Italic
+bold_italic_font	JetBrainsMono NF Bold Italic
+
+font_size 9
+# cursor #cccccc
+# cursor_text_color #111111
+cursor_shape block
+cursor_beam_thickness 1
+cursor_underline_thickness 2.0
+cursor_blink_interval -1
+cursor_stop_blinking_after 5
+
+scrollback_lines 10000
+scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+scrollback_pager_history_size 0
+scrollback_fill_enlarged_window no
+
+wheel_scroll_multiplier 5.0
+wheel_scroll_min_lines 1
+mouse_hide_wait 3.0
+# url_color #0087bd
+url_style curly
+open_url_with default
+url_prefixes http https file ftp mailto git
+detect_urls yes
+
+sync_to_monitor yes
+enable_audio_bell no
+window_padding_width 7 10
+hide_window_decorations yes
+adjust_line_height 125%
+
+
+# BEGIN_KITTY_THEME
+# Tokyo Night
+include current-theme.conf
+# END_KITTY_THEME
