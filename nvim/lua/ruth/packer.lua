@@ -16,12 +16,17 @@ return require('packer').startup(function(use)
 		run = ':TSUpdate'
 	}
 	use 'mbbill/undotree'
-	use 'tpope/vim-fugitive'
-    use 'tpope/vim-commentary'
+	use 'lewis6991/gitsigns.nvim'
+	use {
+		'numToStr/Comment.nvim',
+		config = function()
+			require('Comment').setup()
+		end
+	}
     use 'machakann/vim-sandwich'
     use 'tpope/vim-eunuch'
     -- use 'tpope/vim-sleuth'
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot'
 	use 'nvim-tree/nvim-tree.lua'
 	use 'lukas-reineke/indent-blankline.nvim'
 	use 'nvim-lualine/lualine.nvim'
