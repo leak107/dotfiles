@@ -1,46 +1,4 @@
-local lsp = require('lsp-zero').preset('recommended')
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<CR>"] = cmp.mapping.confirm({select = true}),
-    ['<Tab>'] = nil,
-    ['<S-Tab>'] = nil,
-})
-
-lsp.ensure_installed({
-    'gopls',
-    'tsserver',
-    'eslint',
-    'dockerls',
-    'docker_compose_language_service',
-    'volar',
-    'phpactor',
-    'pest_ls',
-    'tailwindcss',
-    'html',
-    'cssls',
-    'rust_analyzer',
-})
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I',
-    }
-})
+local lsp = require('lsp-zero').preset('minimal')
 
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({buffer = bufnr})
@@ -51,11 +9,38 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', {buffer = true})
 end)
 
--- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-require('lspconfig').volar.setup{
-    filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue'}
-}
+
+local cmp = require('cmp')
+
+cmp.setup({
+    mapping = cmp.mapping.preset.insert({
+        ['<C-j>'] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}),
+        ['<C-k>'] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+        ["<CR>"] = cmp.mapping.confirm({select = true}),
+        ['<Tab>'] = nil,
+        ['<S-Tab>'] = nil,
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    }, {
+        { name = 'buffer'}
+    })
+})
+
+
+local nvim_lsp = require('lspconfig')
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+nvim_lsp['lua_ls'].setup(lsp.nvim_lua_ls())
+nvim_lsp['html'].setup({capabilities = capabilities})
+nvim_lsp['tailwindcss'].setup({capabilities = capabilities})
+nvim_lsp['intelephense'].setup({capabilities = capabilities})
+nvim_lsp['volar'].setup({ capabilities = capabilities, filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue'} })
 
 lsp.setup()
 
@@ -65,3 +50,9 @@ vim.diagnostic.config({
         source = true
     }
 })
+
+-- Sign configuration
+vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
+vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })

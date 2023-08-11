@@ -52,8 +52,6 @@ return require('packer').startup(function(use)
             {'neovim/nvim-lspconfig'},             -- Required
             {                                      -- Optional
                 'williamboman/mason.nvim',
-                -- 'jose-elias-alvarez/null-ls.nvim',
-                -- 'mason-null-ls.nvim',
                 run = function()
                     vim.cmd("MasonUpdate")
                 end,
@@ -64,6 +62,10 @@ return require('packer').startup(function(use)
             {'hrsh7th/nvim-cmp'},     -- Required
             {'hrsh7th/cmp-nvim-lsp'}, -- Required
             {'L3MON4D3/LuaSnip'},     -- Required
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'hrsh7th/cmp-cmdline'},
+            {'saadparwaiz1/cmp_luasnip'},
         }
     }
 
