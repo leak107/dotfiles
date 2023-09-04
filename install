@@ -2,23 +2,27 @@
 
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
+if uname -a | grep "microsoft" > /dev/null; then
+	echo "WSL"
+else
+	rm -rf $HOME/.config/kitty
+	ln -s $DOTFILES/kitty $HOME/.config/kitty
+
+	rm -rf $HOME/.config/hypr
+	ln -s $DOTFILES/hypr $HOME/.config/hypr
+
+	rm -rf $HOME/.config/ags
+	ln -s $DOTFILES/ags $HOME/.config/ags
+
+	rm -rf $HOME/.config/rofi
+	ln -s $DOTFILES/rofi $HOME/.config/rofi
+fi
 
 rm -rf $HOME/.tmux.conf && rm -rf $HOME/.config/tmux
 ln -s $DOTFILES/tmux $HOME/.config/tmux
 
 rm -rf $HOME/.config/nvim
 ln -s $DOTFILES/nvim $HOME/.config/nvim
-
-rm -rf $HOME/.config/hypr
-ln -s $DOTFILES/hypr $HOME/.config/hypr
-
-rm -rf $HOME/.config/ags
-ln -s $DOTFILES/ags $HOME/.config/ags
-
-rm -rf $HOME/.config/rofi
-ln -s $DOTFILES/rofi $HOME/.config/rofi
 
 rm -r $HOME/.zshrc
 ln -s $DOTFILES/.zshrc $HOME/.zshrc
