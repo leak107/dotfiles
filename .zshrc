@@ -103,7 +103,15 @@ alias vim=nvim
 alias v=nvim
 alias artisan="php artisan"
 alias dotfiles="cd $HOME/dotfiles"
-alias gt="git status"
+alias gs="git status"
 alias gd="git diff"
 
 . "$HOME/.asdf/asdf.sh"
+
+# pnpm
+export PNPM_HOME="/home/aston/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
