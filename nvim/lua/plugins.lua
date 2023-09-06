@@ -13,13 +13,41 @@ return {
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	'mbbill/undotree',
 	'lewis6991/gitsigns.nvim',
+    {
+        'nvim-neotest/neotest',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
+            'antoinemadec/FixCursorHold.nvim',
+            'theutz/neotest-pest',
+            'olimorris/neotest-phpunit',
+        }
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        config = function ()
+            require('nvim-ts-autotag').setup()
+        end,
+    },
 	{
 		'numToStr/Comment.nvim',
 		config = function()
 			require('Comment').setup()
 		end
 	},
-	'machakann/vim-sandwich',
+    {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    },
+    {
+        'AndrewRadev/splitjoin.vim',
+        config = function ()
+            vim.g.splitjoin_html_attributes_bracket_on_new_line = 1
+            vim.g.splitjoin_trailing_comma = 1
+            vim.g.splitjoin_php_method_cahin_full = 1
+        end,
+    },
+    'machakann/vim-sandwich',
 	'tpope/vim-eunuch',
 	'nvim-tree/nvim-tree.lua',
 	'lukas-reineke/indent-blankline.nvim',
