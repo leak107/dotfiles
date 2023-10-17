@@ -1,2 +1,5 @@
---vim.cmd('colorscheme kanagawa')
-vim.cmd('colorscheme tokyonight-storm')
+vim.cmd('colorscheme kanagawa')
+-- vim.cmd('colorscheme tokyonight-storm')
+-- vim.cmd('colorscheme rose-pine')
+-- vim.cmd('colorscheme github_dark_high_contrast')
+-- vim.cmd('colorscheme github_light_high_contrast')

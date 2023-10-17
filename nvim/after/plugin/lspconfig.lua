@@ -6,6 +6,7 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', {buffer = true})
     vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', {buffer = true})
     vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', {buffer = true})
+    vim.keymap.set('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', {buffer = true})
     vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', {buffer = true})
 end)
 
@@ -30,8 +31,7 @@ cmp.setup({
     }, {
         { name = 'buffer'}
     })
-})
-
+ })
 
 local nvim_lsp = require('lspconfig')
 

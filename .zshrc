@@ -104,14 +104,19 @@ source $ZSH/oh-my-zsh.sh
 alias vim=nvim
 alias v=nvim
 alias artisan="php artisan"
+alias fresh="php artisan migrate:fresh --seed"
 alias dotfiles="cd $HOME/dotfiles"
 alias gs="git status"
 alias gd="git diff"
+alias yt-dlp-best="yt-dlp -f bestvideo+bestaudio"
+alias tinker="php artisan tinker"
 
 . "$HOME/.asdf/asdf.sh"
 
 # use starship
 eval "$(starship init zsh)"
+
+export PATH="/usr/local/cuda-11.8/bin${PATH:+:${PATH}}"
 
 # pnpm
 export PNPM_HOME="/home/aston/.local/share/pnpm"
