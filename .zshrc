@@ -110,6 +110,8 @@ alias gs="git status"
 alias gd="git diff"
 alias yt-dlp-best="yt-dlp -f bestvideo+bestaudio"
 alias tinker="php artisan tinker"
+alias comp74="/home/aston/.asdf/installs/php/7.4.30/bin/composer"
+alias pickle="/home/aston/pickle"
 
 . "$HOME/.asdf/asdf.sh"
 
@@ -117,6 +119,7 @@ alias tinker="php artisan tinker"
 eval "$(starship init zsh)"
 
 export PATH="/usr/local/cuda-11.8/bin${PATH:+:${PATH}}"
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda-11.8/lib64/
 
 # pnpm
 export PNPM_HOME="/home/aston/.local/share/pnpm"
@@ -126,8 +129,34 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-
 # binding home, end, and delete key since it can't be used in tmux
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey "^[[3~" delete-char
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/aston/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/aston/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/aston/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/aston/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# bun completions
+[ -s "/home/aston/.bun/_bun" ] && source "/home/aston/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

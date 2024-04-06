@@ -128,5 +128,8 @@ return {
 			{'hrsh7th/cmp-cmdline'},
 			{'saadparwaiz1/cmp_luasnip'},
 		}
+	},
+	{
+		{'akinsho/toggleterm.nvim', version = "*", config = true}
 	}
 }
