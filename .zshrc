@@ -112,6 +112,7 @@ alias yt-dlp-best="yt-dlp -f bestvideo+bestaudio"
 alias tinker="php artisan tinker"
 alias comp74="/home/aston/.asdf/installs/php/7.4.30/bin/composer"
 alias pickle="/home/aston/pickle"
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 
 . "$HOME/.asdf/asdf.sh"
 

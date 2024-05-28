@@ -40,8 +40,17 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 nvim_lsp['lua_ls'].setup(lsp.nvim_lua_ls())
 nvim_lsp['html'].setup({capabilities = capabilities})
 nvim_lsp['tailwindcss'].setup({capabilities = capabilities, filetypes = {'typescript', 'html', 'vue'}})
-nvim_lsp['intelephense'].setup({capabilities = capabilities})
-nvim_lsp['volar'].setup({ capabilities = capabilities, filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue'} })
+nvim_lsp['intelephense'].setup({capabilities = capabilities, filetypes = {'php'}})
+nvim_lsp['tsserver'].setup({capabilities = capabilities, filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }})
+nvim_lsp['volar'].setup({
+	capabilities = capabilities,
+	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+	init_options = {
+		vue = {
+			hybridMode = false,
+		},
+	},
+})
 
 lsp.setup()
 

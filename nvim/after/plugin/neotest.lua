@@ -7,3 +7,5 @@ neotest.setup({
         require('neotest-phpunit'),
     }
 })
+
+vim.keymap.set('n', '<leader>tn', function() neotest.run.run() end)

@@ -15,18 +15,19 @@ return {
 	'lewis6991/gitsigns.nvim',
     'ellisonleao/gruvbox.nvim',
     'projekt0n/github-nvim-theme',
-	"sheerun/vim-polyglot",
+	-- "sheerun/vim-polyglot",
 	{'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
     { 'rose-pine/neovim', name = 'rose-pine' },
     { 'Shatur/neovim-ayu' },
     {
         'nvim-neotest/neotest',
         dependencies = {
+			"nvim-neotest/nvim-nio",
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter',
             'antoinemadec/FixCursorHold.nvim',
-            'theutz/neotest-pest',
             'olimorris/neotest-phpunit',
+			"V13Axel/neotest-pest",
             'nvim-neotest/neotest-go',
         }
     },
@@ -131,5 +132,5 @@ return {
 	},
 	{
 		{'akinsho/toggleterm.nvim', version = "*", config = true}
-	}
+	},
 }
