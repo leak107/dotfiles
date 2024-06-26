@@ -15,6 +15,7 @@ return {
 	'lewis6991/gitsigns.nvim',
     'ellisonleao/gruvbox.nvim',
     'projekt0n/github-nvim-theme',
+    'sbdchd/neoformat',
 	-- "sheerun/vim-polyglot",
 	{'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
     { 'rose-pine/neovim', name = 'rose-pine' },
@@ -31,6 +32,10 @@ return {
             'nvim-neotest/neotest-go',
         }
     },
+	{
+		'mfussenegger/nvim-dap'
+	},
+	{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} },
     {
         'windwp/nvim-ts-autotag',
         config = function ()

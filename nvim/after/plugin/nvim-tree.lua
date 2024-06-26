@@ -30,6 +30,7 @@ end
 
 local HEIGHT_RATIO = 0.6  -- You can change this
 local WIDTH_RATIO = 0.5   -- You can change this too
+-- local WIDTH_RATIO = 0.2   -- You can change this too
 
 require('nvim-tree').setup({
     git = {
