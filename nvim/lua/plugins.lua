@@ -16,6 +16,13 @@ return {
     'ellisonleao/gruvbox.nvim',
     'projekt0n/github-nvim-theme',
     'sbdchd/neoformat',
+	{
+		'chipsenkbeil/distant.nvim', 
+		branch = 'v0.3',
+		config = function()
+			require('distant'):setup()
+		end
+	},
 	-- "sheerun/vim-polyglot",
 	{'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
     { 'rose-pine/neovim', name = 'rose-pine' },
@@ -124,7 +131,7 @@ return {
 		dependencies = {
 			-- LSP Support
 			{'neovim/nvim-lspconfig'},             -- Required
-					{'williamboman/mason-lspconfig.nvim'}, -- Optional
+			{'williamboman/mason-lspconfig.nvim'}, -- Optional
 			-- Autocompletion
 			{'hrsh7th/nvim-cmp'},     -- Required
 			{'hrsh7th/cmp-nvim-lsp'}, -- Required
