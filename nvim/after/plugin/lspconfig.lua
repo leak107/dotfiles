@@ -30,74 +30,123 @@ lsp.extend_lspconfig({
 	capabilities = require('cmp_nvim_lsp').default_capabilities(),
 })
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-	-- Replace the language servers listed here 
-	-- with the ones you want to install
-	-- ensure_installed = {'lua_ls', 'rust_analyzer', 'phpactor', 'intelephense', 'volar', 'gopls'},
-	handlers = {
-		function(server_name)
-			require('lspconfig')[server_name].setup({})
-		end,
-	},
-	lua_ls = function ()
-		require('lspconfig').lua_ls.setup {
-			on_init = function(client)
-				local path = client.workspace_folders[1].name
-				if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
-					return
-				end
+vim.lsp.set_log_level("debug")
 
-				client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-					runtime = {
-						version = 'LuaJIT'
-					},
-					-- Make the server aware of Neovim runtime files
-					workspace = {
-						checkThirdParty = false,
-						library = {
-							vim.env.VIMRUNTIME
-						}
-					}
-				})
-			end,
-			settings = {
-				Lua = {}
+require('mason').setup({})
+require('mason-lspconfig').setup()
+
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup {
+	on_init = function(client)
+		local path = client.workspace_folders[1].name
+		if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+			return
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+			runtime = {
+				version = 'LuaJIT'
+			},
+			-- Make the server aware of Neovim runtime files
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME
+				}
 			}
-		}
-	end,
-	intelephense = function ()
-		require('lspconfig').phpactor.setup({
-			cmd = {"intelephense", "--stdio"},
-			filetypes = {"php"},
-			root_dir = root_pattern("composer.json", ".git"),
 		})
 	end,
-	phpactor = function ()
-		require('lspconfig').phpactor.setup({
-			cmd = {"phpactor", "language-server"},
-			filetypes = {'php'},
-			root_dir = root_pattern("composer.json", ".git"),
-		})
-	end,
-	tailwindcss = function ()
-		require('lspconfig').tailwindcss.setup({
-			cmd = { "tailwindcss-language-server", "--stdio" },
-			filetypes = {"typescript", "html", "vue", "js"},
-		})
-	end,
-	volar = function ()
-		require('lspconfig').volar.setup({
-			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-			root_dir = root_pattern('tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs', 'tailwind.config.ts', 'postcss.config.js', 'postcss.config.cjs', 'postcss.config.mjs', 'postcss.config.ts', 'package.json', 'node_modules', '.git'),
-			init_options = {
-				vue = {
-					hybridMode = false,
+	settings = {
+		Lua = {}
+	}
+}
+
+lspconfig.intelephense.setup({
+	cmd = {"intelephense", "--stdio"},
+	filetypes = {"php"},
+})
+
+lspconfig.phpactor.setup({
+	cmd = {"phpactor", "language-server"},
+	filetypes = {'php'},
+})
+
+lspconfig.tailwindcss.setup({
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+})
+
+lspconfig.volar.setup({
+	-- NOTE: Uncomment to enable volar in file types other than vue.
+	-- (Similar to Takeover Mode)
+
+	filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+
+	init_options = {
+		vue = {
+			hybridMode = false,
+		},
+		-- NOTE: This might not be needed. Uncomment if you encounter issues.
+
+		-- typescript = {
+		-- 	tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+		-- },
+	},
+	settings = {
+		typescript = {
+			inlayHints = {
+				enumMemberValues = {
+					enabled = true,
+				},
+				functionLikeReturnTypes = {
+					enabled = true,
+				},
+				propertyDeclarationTypes = {
+					enabled = true,
+				},
+				parameterTypes = {
+					enabled = true,
+					suppressWhenArgumentMatchesName = true,
+				},
+				variableTypes = {
+					enabled = true,
 				},
 			},
-		})
-	end
+		},
+	},
 })
+
+-- local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+-- local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+
+-- lspconfig.tsserver.setup({
+-- 	init_options = {
+-- 		plugins = {
+-- 			{
+-- 				name = '@vue/typescript-plugin',
+-- 				location = volar_path,
+-- 				languages = {"javascript", "typescript", "vue"},
+-- 			},
+-- 		},
+-- 	},
+-- 	-- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+-- 	settings = {
+-- 		typescript = {
+-- 			inlayHints = {
+-- 				includeInlayParameterNameHints = "all",
+-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+-- 				includeInlayFunctionParameterTypeHints = true,
+-- 				includeInlayVariableTypeHints = true,
+-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+-- 				includeInlayPropertyDeclarationTypeHints = true,
+-- 				includeInlayFunctionLikeReturnTypeHints = true,
+-- 				includeInlayEnumMemberValueHints = true,
+-- 			},
+-- 		},
+-- 	}
+-- })
+
+
 
 local cmp = require('cmp')
 
@@ -126,46 +175,7 @@ cmp.setup({
 	}),
 })
 
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 local current_dir = vim.fn.getcwd()
-
--- nvim_lsp['phpactor'].setup({})
--- nvim_lsp['lua_ls'].setup(lsp.nvim_lua_ls())
--- nvim_lsp['html'].setup({capabilities = capabilities})
--- nvim_lsp['tailwindcss'].setup({capabilities = capabilities, filetypes = {'typescript', 'html', 'vue'}})
--- nvim_lsp['intelephense'].setup({capabilities = capabilities, filetypes = {'php'}, settings = {
--- 	intelephense = {
--- 		environment = {
--- 			includePaths = { current_dir }
--- 		}
--- 	}
--- }})
-
--- nvim_lsp['tsserver'].setup({
--- 	init_options = {
--- 		plugins = {
--- 			{
--- 				name = '@vue/typescript-plugin',
--- 				location = '/home/aston/.local/share/nvim/mason/bin/vue-language-server',
--- 				languages = { 'vue' },
--- 			},
--- 		},
--- 	},
--- 	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
--- })
---
--- nvim_lsp['volar'].setup({
--- 	capabilities = capabilities,
--- 	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
--- 	init_options = {
--- 		vue = {
--- 			hybridMode = false,
--- 		},
--- 	},
--- })
-
--- lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true,
