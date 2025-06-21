@@ -106,7 +106,7 @@ alias v=nvim
 alias artisan="php artisan"
 alias fresh="php artisan migrate:fresh --seed"
 alias dotfiles="cd $HOME/dotfiles"
-alias gs="git status"
+alias gss="git status"
 alias gd="git diff"
 alias yt-dlp-best="yt-dlp -f bestvideo+bestaudio"
 alias tinker="php artisan tinker"
@@ -114,7 +114,10 @@ alias comp74="/home/aston/.asdf/installs/php/7.4.30/bin/composer"
 alias pickle="/home/aston/pickle"
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 
-. "$HOME/.asdf/asdf.sh"
+#. "$HOME/.asdf/asdf.sh"
+export PATH="$HOME/.asdf/bin:$PATH"
+export ASDF_DATA_DIR="/home/aston/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 # use starship
 eval "$(starship init zsh)"
@@ -135,22 +138,6 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey "^[[3~" delete-char
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/aston/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/aston/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/aston/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/aston/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
 # bun completions
 [ -s "/home/aston/.bun/_bun" ] && source "/home/aston/.bun/_bun"
 
@@ -165,3 +152,6 @@ export PATH="$PATH:/opt/mssql-tools18/bin"
 
 # distant
 export PATH="$PATH:/home/aston/.local/bin"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"

@@ -145,4 +145,29 @@ return {
 	{
 		{'akinsho/toggleterm.nvim', version = "*", config = true}
 	},
+	{"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
+	{
+		'projekt0n/github-nvim-theme',
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			require('github-theme').setup({
+				-- ...
+			})
+
+			vim.cmd('colorscheme github_dark_high_contrast')
+		end,
+	},
+	-- {
+	-- 	"CopilotC-Nvim/CopilotChat.nvim",
+	-- 	dependencies = {
+	-- 		{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+	-- 		{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+	-- 	},
+	-- 	build = "make tiktoken", -- Only on MacOS or Linux
+	-- 	opts = {
+	-- 		-- See Configuration section for options
+	-- 	},
+	-- 	-- See Commands section for default commands if you want to lazy load on them
+	-- },
 }

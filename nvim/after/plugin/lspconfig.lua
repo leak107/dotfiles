@@ -66,6 +66,9 @@ lspconfig.lua_ls.setup {
 	}
 }
 
+lspconfig.gopls.setup({})
+lspconfig.pyright.setup{}
+
 lspconfig.intelephense.setup({
 	cmd = {"intelephense", "--stdio"},
 	filetypes = {"php"},
@@ -79,50 +82,70 @@ lspconfig.phpactor.setup({
 lspconfig.tailwindcss.setup({
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 })
+--
+-- VolarCapabilities = vim.lsp.protocol.make_client_capabilities()
+-- VolarCapabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+--
+-- lspconfig.volar.setup({
+-- 	capabilities = VolarCapabilities,
+-- 	-- NOTE: Uncomment to enable volar in file types other than vue.
+-- 	-- (Similar to Takeover Mode)
+--
+-- 	filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
+--
+-- 	init_options = {
+-- 		vue = {
+-- 			hybridMode = false,
+-- 		},
+-- 		-- NOTE: This might not be needed. Uncomment if you encounter issues.
+--
+-- 		-- typescript = {
+-- 		-- 	tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+-- 		-- },
+-- 	},
+-- 	settings = {
+-- 		typescript = {
+-- 			inlayHints = {
+-- 				enumMemberValues = {
+-- 					enabled = true,
+-- 				},
+-- 				functionLikeReturnTypes = {
+-- 					enabled = true,
+-- 				},
+-- 				propertyDeclarationTypes = {
+-- 					enabled = true,
+-- 				},
+-- 				parameterTypes = {
+-- 					enabled = true,
+-- 					suppressWhenArgumentMatchesName = true,
+-- 				},
+-- 				variableTypes = {
+-- 					enabled = true,
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- })
+--
+local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
 
-lspconfig.volar.setup({
-	-- NOTE: Uncomment to enable volar in file types other than vue.
-	-- (Similar to Takeover Mode)
+lspconfig.tsserver.setup {
+  init_options = {
+    plugins = {
+      {
+        name = '@vue/typescript-plugin',
+        location = volar_path,
+        languages = { 'vue' },
+      },
+    },
+  },
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+}
 
-	filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact", "json" },
 
-	init_options = {
-		vue = {
-			hybridMode = false,
-		},
-		-- NOTE: This might not be needed. Uncomment if you encounter issues.
-
-		-- typescript = {
-		-- 	tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-		-- },
-	},
-	settings = {
-		typescript = {
-			inlayHints = {
-				enumMemberValues = {
-					enabled = true,
-				},
-				functionLikeReturnTypes = {
-					enabled = true,
-				},
-				propertyDeclarationTypes = {
-					enabled = true,
-				},
-				parameterTypes = {
-					enabled = true,
-					suppressWhenArgumentMatchesName = true,
-				},
-				variableTypes = {
-					enabled = true,
-				},
-			},
-		},
-	},
-})
-
--- local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
--- local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
-
+-- No need to set `hybridMode` to `true` as it's the default value
+lspconfig.volar.setup {}
 -- lspconfig.tsserver.setup({
 -- 	init_options = {
 -- 		plugins = {
